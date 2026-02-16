@@ -2,3 +2,8 @@
 api_hello:
     path: /api/hello
     controller: App\Controller\ApiController::index
+
+api_platform:
+    resource: .
+    type: api_platform
+    prefix: /api
