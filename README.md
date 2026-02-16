@@ -1,4 +1,4 @@
-# Loggex v02 - Skeleton Project (HTTPS)
+# Skeleton Project (HTTPS)
 
 Este proyecto es un esqueleto base para aplicaciones web modernas utilizando **Symfony 8 (Backend)** y **React + Vite (Frontend)**, orquestado con **Docker** y servido vía **HTTPS** mediante Caddy.
 
