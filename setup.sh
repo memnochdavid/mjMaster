@@ -3,7 +3,7 @@
 # Detener el script si hay errores
 set -e
 
-echo "=== Iniciando configuración del proyecto Loggex v02 (con Docker, HTTPS Custom Ports y CORS) ==="
+echo "=== Iniciando configuración del proyecto Project Skeleton (con Docker, HTTPS Custom Ports y CORS) ==="
 
 # 1. Configuración del Backend (Symfony)
 echo ""
@@ -318,7 +318,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.logoContainer}>
         <img src={viteLogo} alt="Logo" className={styles.logo} />
-        <span className={styles.title}>Loggex v02</span>
+        <span className={styles.title}>Project Skeleton</span>
       </div>
       <nav style={{ display: 'flex', gap: '1rem' }}>
         <Link to="/" className={styles.navLink}>Home</Link>
@@ -350,7 +350,7 @@ import styles from './Footer.module.css';
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p>&copy; {new Date().getFullYear()} Loggex v02 Skeleton. Todos los derechos reservados.</p>
+      <p>&copy; {new Date().getFullYear()} Project Skeleton. Todos los derechos reservados.</p>
     </footer>
   );
 };
@@ -431,7 +431,7 @@ const Home = () => {
           <img src={reactLogo} className={styles.logo} alt="React logo" />
         </a>
       </div>
-      <h1>Bienvenido a Loggex v02</h1>
+      <h1>Bienvenido a Project Skeleton</h1>
       <div className={styles.card}>
         <h2>Estado del Backend:</h2>
         <p className={\`\${styles.backendStatus} \${isError ? styles.statusError : styles.statusSuccess}\`}>
@@ -462,7 +462,7 @@ import styles from './Home.module.css';
 const About = () => {
   return (
     <div className={styles.container}>
-      <h1>Acerca de Loggex</h1>
+      <h1>Acerca de Project Skeleton</h1>
       <div className={styles.card}>
         <p>Esta es una aplicación de demostración para mostrar cómo funciona el enrutamiento en React (SPA).</p>
         <p>El Header y el Footer se mantienen fijos, ¡solo cambia este contenido!</p>
@@ -620,7 +620,7 @@ version: '3.8'
 services:
   caddy:
     image: caddy:2-alpine
-    container_name: loggex-caddy
+    container_name: mj-caddy
     restart: unless-stopped
     ports:
       - "8888:80"
@@ -636,7 +636,7 @@ services:
 
   database:
     image: postgres:15-alpine
-    container_name: loggex-db
+    container_name: mj-db
     environment:
       POSTGRES_DB: app_db
       POSTGRES_USER: app_user
@@ -652,7 +652,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: loggex-backend
+    container_name: mj-backend
     volumes:
       - ./backend:/var/www/html:z
     depends_on:
@@ -667,7 +667,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: loggex-frontend
+    container_name: mj-frontend
     volumes:
       - ./frontend:/app:z
       - /app/node_modules

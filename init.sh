@@ -4,15 +4,16 @@
 
 set -e
 
-echo "=== Inicializando Loggex v02 ==="
+echo "=== Inicializando Project Skeleton ==="
 
 # 1. Levantar contenedores
 echo "Levantando contenedores Docker..."
 docker compose up -d --build
 
 # 2. Instalar dependencias Backend
-echo "Instalando dependencias de Symfony (Composer)..."
-docker compose exec backend composer install
+echo "Instalando/Actualizando dependencias de Symfony (Composer)..."
+# Usamos update para asegurar que el composer.lock se sincronice con los cambios manuales en composer.json
+docker compose exec backend composer update
 
 # 3. Instalar dependencias Frontend
 echo "Instalando dependencias de React (NPM)..."
@@ -28,7 +29,11 @@ docker compose exec backend php bin/console doctrine:database:create --if-not-ex
 echo "Ejecutando migraciones de base de datos..."
 docker compose exec backend php bin/console doctrine:migrations:migrate --no-interaction
 
-# 5. Limpiar caché
+# 5. Cargar Fixtures (Datos de prueba)
+echo "Cargando datos de prueba (Fixtures)..."
+docker compose exec backend php bin/console doctrine:fixtures:load --no-interaction
+
+# 6. Limpiar caché
 echo "Limpiando caché de Symfony..."
 docker compose exec backend php bin/console cache:clear
 
@@ -37,3 +42,4 @@ echo "=== ¡Proyecto listo! ==="
 echo "Frontend: https://localhost:8443"
 echo "Backend API: https://localhost:9443/api"
 echo "Backend Hello: https://localhost:9443/api/hello"
+echo "Usuarios de prueba creados: admin@example.com, user@example.com, guest@example.com (pass: admin123, user123, guest123)"

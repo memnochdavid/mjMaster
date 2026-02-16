@@ -4,7 +4,7 @@ import styles from './Home.module.css'; // Reutilizamos estilos por simplicidad
 const About = () => {
   return (
     <div className={styles.container}>
-      <h1>Acerca de Loggex</h1>
+      <h1>Acerca del proyecto</h1>
       <div className={styles.card}>
         <p>
           Esta es una aplicación de demostración para mostrar cómo funciona

@@ -23,7 +23,7 @@ const Home = () => {
           <img src={reactLogo} className={styles.logo} alt="React logo" />
         </a>
       </div>
-      <h1>Bienvenido a Loggex v02</h1>
+      <h1>Bienvenido a Project Skeleton</h1>
       
       <div className={styles.card}>
         <h2>Estado del Backend:</h2>

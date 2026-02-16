@@ -8,7 +8,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.logoContainer}>
         <img src={viteLogo} alt="Logo" className={styles.logo} />
-        <span className={styles.title}>Loggex v02</span>
+        <span className={styles.title}>Project Skeleton</span>
       </div>
       <nav style={{ display: 'flex', gap: '1rem' }}>
         <Link to="/" className={styles.navLink}>Home</Link>
