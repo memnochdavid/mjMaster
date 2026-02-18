@@ -23,6 +23,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $placeholder = '/products/placeholder.avif';
+
         // --- USUARIOS ---
         $admin = new User();
         $admin->setEmail('admin@example.com');
@@ -61,6 +63,7 @@ class AppFixtures extends Fixture
         $prod1->setPrice('25.50');
         $prod1->setStock(100);
         $prod1->setCategory($catSemillas);
+        $prod1->setPicture($placeholder);
         $manager->persist($prod1);
 
         $prod2 = new Product();
@@ -69,6 +72,7 @@ class AppFixtures extends Fixture
         $prod2->setPrice('35.00');
         $prod2->setStock(50);
         $prod2->setCategory($catSemillas);
+        $prod2->setPicture($placeholder);
         $manager->persist($prod2);
 
         // Parafernalia
@@ -78,6 +82,7 @@ class AppFixtures extends Fixture
         $prod3->setPrice('45.90');
         $prod3->setStock(15);
         $prod3->setCategory($catParafernalia);
+        $prod3->setPicture($placeholder);
         $manager->persist($prod3);
 
         $prod4 = new Product();
@@ -86,6 +91,7 @@ class AppFixtures extends Fixture
         $prod4->setPrice('12.00');
         $prod4->setStock(200);
         $prod4->setCategory($catParafernalia);
+        $prod4->setPicture($placeholder);
         $manager->persist($prod4);
 
         // Cultivo
@@ -95,6 +101,7 @@ class AppFixtures extends Fixture
         $prod5->setPrice('29.95');
         $prod5->setStock(30);
         $prod5->setCategory($catCultivo);
+        $prod5->setPicture($placeholder);
         $manager->persist($prod5);
 
         // --- RESEÑAS (REVIEWS) ---
