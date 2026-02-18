@@ -1,6 +1,6 @@
-# Skeleton Project (HTTPS)
+# Growshop Skeleton Project (HTTPS)
 
-Este proyecto es un esqueleto base para aplicaciones web modernas utilizando **Symfony 8 (Backend)** y **React + Vite (Frontend)**, orquestado con **Docker** y servido vía **HTTPS** mediante Caddy.
+Este proyecto es un esqueleto base para un e-commerce de **Growshop** utilizando **Symfony 8 (Backend)** y **React + Vite (Frontend)**, orquestado con **Docker** y servido vía **HTTPS** mediante Caddy.
 
 ## 🚀 Tecnologías Principales
 
@@ -8,18 +8,9 @@ Este proyecto es un esqueleto base para aplicaciones web modernas utilizando **S
 *   **Frontend**: React 19, Vite, Tailwind CSS 3.
 *   **Infraestructura**: Docker Compose, Caddy (HTTPS/Proxy).
 
-## 🚀 Inicio Rápido (Nuevo Proyecto)
+## 🔄 Inicio Rápido
 
-Si estás creando el proyecto desde cero:
-
-```bash
-chmod +x setup.sh
-./setup.sh
-```
-
-## 🔄 Inicio Rápido (Clonar Proyecto Existente)
-
-Si acabas de clonar este repositorio desde Git en un equipo nuevo:
+Si acabas de clonar este repositorio:
 
 1. Dale permisos al script de inicialización:
    ```bash
@@ -28,105 +19,90 @@ Si acabas de clonar este repositorio desde Git en un equipo nuevo:
 
 2. Ejecuta el script para instalar dependencias, levantar contenedores y cargar datos de prueba:
    ```bash
-   ./init.sh
+   sudo ./init.sh
    ```
 
 ---
 
 ## 🛠️ Automatización y Base de Datos
 
-Hemos incluido scripts en la carpeta `backend/` para facilitar las tareas comunes de desarrollo. Ejecútalos desde la raíz del proyecto o desde la carpeta `backend/`.
+Hemos incluido scripts en la **raíz del proyecto** para facilitar las tareas comunes de desarrollo.
 
-### Scripts de Utilidad (en `backend/`)
+### Scripts de Utilidad
+- **`./init.sh`**: Inicialización completa del proyecto (Docker, dependencias, BD y fixtures).
 - **`./clean-cache.sh`**: Limpia la caché de Symfony dentro del contenedor.
 - **`./make-migration.sh`**: Genera una nueva migración basada en los cambios de tus entidades.
 - **`./migrate.sh`**: Aplica las migraciones pendientes a la base de datos.
-- **`./load-fixtures.sh`**: Borra la base de datos y carga los datos de prueba iniciales.
+- **`./load-fixtures.sh`**: Carga los datos de prueba iniciales (borra los datos actuales).
+- **`./reset-db.sh`**: **Reset total**. Borra migraciones, recrea la BD desde cero y carga fixtures.
+- **`./backup-db.sh`**: Crea una copia de seguridad de la base de datos PostgreSQL.
+- **`./restore-db.sh`**: Restaura la base de datos desde una copia de seguridad.
+- **`./setup.sh`**: Script de scaffolding inicial (solo para creación del proyecto).
 
 > **Nota**: Si tu usuario no está en el grupo `docker`, recuerda ejecutarlos con `sudo`.
 
 ### Datos de Prueba (Fixtures)
-El proyecto viene con usuarios preconfigurados para pruebas:
-- **Admin**: `admin@example.com` (Password: `admin123`) - Rol: `ROLE_ADMIN`
-- **User**: `user@example.com` (Password: `user123`) - Rol: `ROLE_USER`
-- **Guest**: `guest@example.com` (Password: `guest123`) - Rol: `ROLE_GUEST`
+El proyecto incluye un catálogo inicial de Growshop (Semillas, Bongs, Grinders) y usuarios:
+- **Admin**: `admin@example.com` (Pass: `admin123`) - Rol: `ROLE_ADMIN`
+- **User**: `user@example.com` (Pass: `user123`) - Rol: `ROLE_USER`
+- **Guest**: `guest@example.com` (Pass: `guest123`) - Rol: `ROLE_GUEST`
 
 ---
 
-## 🌿 Flujo de Trabajo Recomendado (Git)
+## 🌿 Flujo de Trabajo Recomendado
 
-Para mantener el proyecto ordenado, **nunca trabajes directamente en la rama `main`**.
+### 1. Gestión de Ramas (Git)
+**Nunca trabajes directamente en `main`**.
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/nombre-funcionalidad
+```
 
-1. **Asegúrate de estar actualizado**:
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
+### 2. Cambios en el Modelo (Entidades)
+Si necesitas añadir campos o nuevas tablas:
+1. Modifica la entidad en `backend/src/Entity/`.
+2. Ejecuta `./make-migration.sh`.
+3. Ejecuta `./migrate.sh`.
+4. (Opcional) Si el cambio es muy grande, usa `./reset-db.sh`.
 
-2. **Crea una Rama (Branch)** para tu tarea:
-   ```bash
-   git checkout -b feature/nombre-funcionalidad
-   ```
-
-3. **Desarrolla tus cambios**, haz commit y sube la rama:
-   ```bash
-   git add .
-   git commit -m "Descripción clara de lo que hice"
-   git push origin feature/nombre-funcionalidad
-   ```
+### 3. Desarrollo Frontend
+El frontend se sirve en [https://localhost:8443](https://localhost:8443).
+Usa Tailwind CSS para los estilos. Las imágenes de producto por defecto están en `frontend/public/products/placeholder.avif`.
 
 ---
 
-## 🛠️ Guía de Desarrollo
+## 🛠️ Guía de Acceso
 
-### Acceso Seguro (HTTPS)
 - **Frontend**: [https://localhost:8443](https://localhost:8443)
 - **Backend API (Swagger)**: [https://localhost:9443/api](https://localhost:9443/api)
 - **Base de Datos**: Puerto `5432` (User: `app_user`, Pass: `app_password`, DB: `app_db`)
-
-### Comandos Backend (Symfony)
-Ejecutar siempre dentro del contenedor:
-```bash
-docker compose exec backend php bin/console [comando]
-```
-- Crear Entidad API Platform: `make:entity --api-resource`
-- Crear Controlador: `make:controller`
-
-### Estilos Frontend (Tailwind CSS)
-El proyecto utiliza Tailwind CSS. Puedes usar las clases de utilidad directamente en tus componentes React.
-Ejemplo:
-```jsx
-<h1 className="text-3xl font-bold underline text-blue-600">
-  Hola Mundo!
-</h1>
-```
-Los estilos base se encuentran en `frontend/src/index.css`.
 
 ---
 
 ## 📦 Estructura del Repositorio
 
 ### Backend (`backend/`)
-- `src/Entity/`: Entidades de Doctrine (Base de Datos).
-- `src/DataFixtures/`: Datos de prueba para la base de datos.
-- `src/Repository/`: Lógica de consulta a la base de datos.
+- `src/Entity/`: Entidades de la base de datos (User, Product, Category, Order, Review).
+- `src/DataFixtures/`: Catálogo inicial y usuarios de prueba.
 
 ### Frontend (`frontend/`)
-- `src/components/`: Componentes reutilizables.
-- `src/pages/`: Vistas completas.
-- `src/App.jsx`: Componente raíz y rutas.
-- `tailwind.config.js`: Configuración de Tailwind CSS.
+- `src/components/`: Componentes React reutilizables.
+- `src/pages/`: Vistas principales (Home, Login, etc.).
+- `public/products/`: Almacenamiento temporal de imágenes de producto.
 
 ---
 
 ## 🔧 Solución de Problemas
 
 **Permisos de Docker (Linux)**
-Si recibes errores de "permission denied" al usar Docker, añade tu usuario al grupo docker:
 ```bash
 sudo usermod -aG docker $USER
 # Reinicia sesión para aplicar cambios
 ```
 
-**Puerto ocupado**
-Si el puerto 8888, 8443 o 9443 está ocupado, edita `docker-compose.yml`.
+**Error de Tailwind/PostCSS**
+Si Vite falla al cargar Tailwind, asegúrate de que las dependencias estén instaladas:
+```bash
+sudo docker compose exec frontend npm install
+```
