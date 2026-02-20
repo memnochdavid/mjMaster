@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import viteLogo from '/vite.svg';
+import logo from '/logo.png';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -13,7 +13,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center group">
-              <img className="h-8 w-8 transition-transform group-hover:scale-110" src={viteLogo} alt="Logo" />
+              <img className="h-8 w-8 transition-transform group-hover:scale-110" src={logo} alt="Logo" />
               <span className="ml-2 text-xl font-bold text-primary tracking-wide">MJ Master</span>
             </Link>
           </div>
