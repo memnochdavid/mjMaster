@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import Button from '../components/Button';
 
 const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal, clearCart } = useCart();
@@ -14,12 +15,9 @@ const Cart = () => {
       <div className="container mx-auto px-4 py-16 text-center">
         <h2 className="text-3xl font-bold mb-4 text-gray-100">Tu carrito está vacío</h2>
         <p className="text-gray-400 mb-8">¡Añade algunos productos para empezar!</p>
-        <Link 
-          to="/products" 
-          className="bg-primary text-dark-bg font-bold px-6 py-3 rounded-lg hover:bg-lime-400 transition-colors shadow-lg hover:shadow-primary/20"
-        >
+        <Button to="/products" variant="primary" className="px-6 py-3 text-base">
           Ver Productos
-        </Link>
+        </Button>
       </div>
     );
   }
@@ -55,7 +53,7 @@ const Cart = () => {
                     <p className="text-sm text-gray-400 line-clamp-1">{item.description}</p>
                     <button 
                       onClick={() => removeFromCart(item.id)}
-                      className="text-red-400 text-sm hover:text-red-300 mt-1 flex items-center gap-1 transition-colors"
+                      className="text-red-400 text-sm hover:text-red-300 mt-1 flex items-center gap-1 transition-colors focus:outline-none"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -76,7 +74,7 @@ const Cart = () => {
                   <div className="flex items-center border border-sage-200 rounded-lg overflow-hidden bg-sage-100">
                     <button 
                       onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                      className="px-3 py-1 hover:bg-sage-200 transition-colors text-gray-300"
+                      className="px-3 py-1 hover:bg-sage-200 transition-colors text-gray-300 focus:outline-none"
                       disabled={item.quantity <= 1}
                     >
                       -
@@ -84,7 +82,7 @@ const Cart = () => {
                     <span className="px-3 py-1 font-semibold text-gray-100 w-8 text-center bg-card-bg">{item.quantity}</span>
                     <button 
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="px-3 py-1 hover:bg-sage-200 transition-colors text-gray-300"
+                      className="px-3 py-1 hover:bg-sage-200 transition-colors text-gray-300 focus:outline-none"
                       disabled={item.quantity >= item.stock}
                     >
                       +
@@ -110,7 +108,7 @@ const Cart = () => {
             </Link>
             <button 
               onClick={clearCart}
-              className="text-gray-400 hover:text-red-400 text-sm font-medium transition-colors"
+              className="text-gray-400 hover:text-red-400 text-sm font-medium transition-colors focus:outline-none"
             >
               Vaciar carrito
             </button>
@@ -148,9 +146,9 @@ const Cart = () => {
               <p className="text-xs text-gray-500 mt-1 text-right">Impuestos incluidos</p>
             </div>
             
-            <button className="w-full bg-primary text-dark-bg py-3 rounded-lg font-bold hover:bg-lime-400 transition-colors shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5 duration-200">
+            <Button className="w-full py-3 text-base shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5">
               Finalizar Compra
-            </button>
+            </Button>
             
             <div className="mt-6 flex justify-center gap-4 text-gray-600">
               {/* Iconos de pago simulados (placeholders oscuros) */}

@@ -17,8 +17,8 @@ const ProductSearch = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex items-center space-x-2 mb-6 w-full">
-      <div className="relative flex-grow">
+    <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 mb-6 w-full">
+      <div className="relative flex-grow w-full">
         <input
           type="text"
           value={query}
@@ -33,7 +33,7 @@ const ProductSearch = () => {
         </div>
       </div>
       
-      <Button type="submit" className="py-3 px-6">
+      <Button type="submit" className="py-3 px-6 w-full sm:w-auto">
         Buscar
       </Button>
     </form>

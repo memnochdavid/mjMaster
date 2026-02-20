@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -66,16 +67,13 @@ const Login = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full rounded bg-primary px-4 py-3 font-bold text-dark-bg hover:bg-lime-400 focus:outline-none shadow-lg hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5"
-          >
+          <Button type="submit" className="w-full py-3 text-base shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5">
             Entrar
-          </button>
+          </Button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-400">
-          ¿No tienes cuenta? <a href="/register" className="text-primary hover:text-lime-300 hover:underline font-medium">Regístrate</a>
+          ¿No tienes cuenta? <Link to="/register" className="text-primary hover:text-lime-300 hover:underline font-medium">Regístrate</Link>
         </p>
       </div>
     </div>

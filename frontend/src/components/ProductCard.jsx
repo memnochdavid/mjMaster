@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import Button from './Button';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -9,12 +10,11 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = () => {
     addToCart(product, 1);
-    // Opcional: Mostrar un toast o notificación aquí
   };
 
   return (
-    <div className="bg-card-bg border border-sage-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
-      <div className="relative h-48 overflow-hidden group">
+    <div className="bg-card-bg border border-sage-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full group">
+      <div className="relative h-48 overflow-hidden">
         <img 
           src={imageUrl} 
           alt={product.name} 
@@ -35,17 +35,22 @@ const ProductCard = ({ product }) => {
         
         <div className="mt-4 flex items-center justify-between">
           <span className="text-xl font-bold text-primary">{parseFloat(product.price).toFixed(2)} €</span>
-          <button 
-            onClick={handleAddToCart}
-            className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-              product.stock > 0 
-                ? 'bg-primary text-dark-bg hover:bg-lime-400 active:scale-95 transform transition-transform'
-                : 'bg-gray-600 text-gray-300 cursor-not-allowed'
-            }`}
-            disabled={product.stock <= 0}
-          >
-            {product.stock > 0 ? 'Añadir' : 'Sin Stock'}
-          </button>
+          
+          {product.stock > 0 ? (
+            <Button 
+              onClick={handleAddToCart}
+              className="px-3 py-1.5 text-sm"
+            >
+              Añadir
+            </Button>
+          ) : (
+            <button 
+              className="px-3 py-1.5 rounded text-sm font-medium bg-gray-600 text-gray-300 cursor-not-allowed"
+              disabled
+            >
+              Sin Stock
+            </button>
+          )}
         </div>
       </div>
     </div>

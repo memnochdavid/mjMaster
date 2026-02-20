@@ -1,25 +1,51 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  // Inicializar carrito desde localStorage si existe
-  const [cartItems, setCartItems] = useState(() => {
+  const { user, loading } = useAuth(); // Obtenemos el usuario del contexto de autenticación
+  const [cartItems, setCartItems] = useState([]);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Determinar la clave de almacenamiento según el usuario
+  const getStorageKey = () => {
+    if (loading) return null; // Esperar a que termine de cargar el usuario
+    return user ? `cart_user_${user.email}` : 'cart_guest';
+  };
+
+  // Cargar carrito cuando cambia el usuario (o al iniciar)
+  useEffect(() => {
+    if (loading) return;
+
+    const key = getStorageKey();
+    if (!key) return;
+
     try {
-      const storedCart = localStorage.getItem('cart');
-      return storedCart ? JSON.parse(storedCart) : [];
+      const storedCart = localStorage.getItem(key);
+      if (storedCart) {
+        setCartItems(JSON.parse(storedCart));
+      } else {
+        setCartItems([]);
+      }
     } catch (error) {
       console.error("Error al cargar el carrito:", error);
-      return [];
+      setCartItems([]);
     }
-  });
+    setIsInitialized(true);
+  }, [user, loading]);
 
   // Guardar en localStorage cada vez que cambie el carrito
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (!isInitialized || loading) return;
+
+    const key = getStorageKey();
+    if (key) {
+      localStorage.setItem(key, JSON.stringify(cartItems));
+    }
+  }, [cartItems, user, loading, isInitialized]);
 
   // Añadir producto al carrito
   const addToCart = (product, quantity = 1) => {
@@ -27,14 +53,12 @@ export const CartProvider = ({ children }) => {
       const existingItem = prevItems.find(item => item.id === product.id);
       
       if (existingItem) {
-        // Si ya existe, actualizamos la cantidad
         return prevItems.map(item => 
           item.id === product.id 
             ? { ...item, quantity: item.quantity + quantity } 
             : item
         );
       } else {
-        // Si no existe, lo añadimos
         return [...prevItems, { ...product, quantity }];
       }
     });
@@ -68,7 +92,7 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((total, item) => total + (parseFloat(item.price) * item.quantity), 0);
   };
 
-  // Calcular número de items (para el badge del icono)
+  // Calcular número de items
   const getCartCount = () => {
     return cartItems.reduce((count, item) => count + item.quantity, 0);
   };

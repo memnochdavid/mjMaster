@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../services/productService';
 import ProductCard from '../components/ProductCard';
+import Button from '../components/Button';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -51,18 +52,20 @@ const Home = () => {
             Calidad premium y envíos 100% discretos garantizados.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">
-            <Link 
+            <Button 
               to="/products" 
-              className="bg-primary text-dark-bg font-bold px-8 py-4 rounded-lg hover:bg-lime-400 transition-all shadow-[0_0_20px_rgba(140,244,37,0.3)] hover:shadow-[0_0_30px_rgba(140,244,37,0.5)] transform hover:-translate-y-1"
+              variant="primary"
+              className="px-8 py-4 text-base shadow-[0_0_20px_rgba(140,244,37,0.3)] hover:shadow-[0_0_30px_rgba(140,244,37,0.5)] transform hover:-translate-y-1"
             >
               Ver Catálogo
-            </Link>
-            <Link 
+            </Button>
+            <Button 
               to="/about" 
-              className="border border-gray-500 text-gray-300 font-bold px-8 py-4 rounded-lg hover:bg-white/10 hover:border-white hover:text-white transition-all backdrop-blur-sm"
+              variant="hero-secondary"
+              className="px-8 py-4 text-base"
             >
               Sobre Nosotros
-            </Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -133,9 +136,9 @@ const Home = () => {
               <h2 className="text-3xl font-bold text-gray-100">Novedades</h2>
               <p className="text-gray-400 mt-2">Lo último en llegar a nuestro catálogo</p>
             </div>
-            <Link to="/products" className="hidden md:flex items-center text-primary hover:text-white transition-colors font-medium">
+            <Button to="/products" variant="outline" className="hidden md:flex">
               Ver todo <span className="ml-2">→</span>
-            </Link>
+            </Button>
           </div>
 
           {loading ? (
@@ -151,9 +154,9 @@ const Home = () => {
           )}
           
           <div className="mt-8 text-center md:hidden">
-            <Link to="/products" className="inline-block border border-primary text-primary px-6 py-2 rounded hover:bg-primary hover:text-dark-bg transition-colors">
+            <Button to="/products" variant="outline">
               Ver todo el catálogo
-            </Link>
+            </Button>
           </div>
         </div>
       </section>
