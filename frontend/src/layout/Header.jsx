@@ -11,6 +11,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const cartCount = getCartCount();
+  const isAdmin = user?.roles?.includes('ROLE_ADMIN');
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -18,7 +19,6 @@ const Header = () => {
   // Función para manejar el cierre de sesión
   const handleLogout = () => {
     logout();
-    // Ya no necesitamos limpiar el carrito manualmente, el CartContext lo gestiona por usuario
     closeMenu();
   };
 
@@ -30,7 +30,6 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center group" onClick={closeMenu}>
-              {/* Logo más grande para ocupar el espacio del texto eliminado */}
               <img className="h-12 w-auto transition-transform group-hover:scale-110" src={logo} alt="MJ Master Logo" />
             </Link>
           </div>
@@ -46,6 +45,11 @@ const Header = () => {
             <Link to="/about" className="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Nosotros
             </Link>
+            {isAdmin && (
+              <Link to="/admin" className="text-primary hover:text-white px-3 py-2 rounded-md text-sm font-bold transition-colors border border-primary/30 hover:bg-primary/10">
+                Panel Admin
+              </Link>
+            )}
           </nav>
 
           {/* Área de Usuario y Carrito (Desktop) */}
@@ -146,6 +150,15 @@ const Header = () => {
             >
               Nosotros
             </Link>
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="text-primary hover:text-white hover:bg-primary/10 block px-3 py-2 rounded-md text-base font-bold border-l-4 border-primary bg-primary/5"
+                onClick={closeMenu}
+              >
+                Panel Admin
+              </Link>
+            )}
           </div>
           
           <div className="pt-4 pb-4 border-t border-sage-200">
