@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import Button from '../components/Button';
@@ -9,6 +9,7 @@ const Header = () => {
   const { user, logout } = useAuth();
   const { getCartCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const cartCount = getCartCount();
   const isAdmin = user?.roles?.includes('ROLE_ADMIN');
@@ -20,6 +21,7 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     closeMenu();
+    navigate('/'); // Redirigir al inicio
   };
 
   return (
