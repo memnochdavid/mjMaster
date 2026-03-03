@@ -3,6 +3,7 @@ import { getCategories, createCategory, updateCategory, deleteCategory } from '.
 import CategoryForm from '../../components/admin/CategoryForm';
 import AdminTable from '../../components/admin/AdminTable';
 import AdminPageHeader from '../../components/admin/AdminPageHeader';
+import { API_BASE_URL } from '../../config';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -16,11 +17,10 @@ const AdminCategories = () => {
   const itemsPerPage = 7;
   const [searchTerm, setSearchTerm] = useState('');
 
-  const API_BASE_URL = "https://localhost:9443";
-
   const getImageUrl = (path) => {
     if (!path) return '/products/placeholder.avif';
     if (path.startsWith('http')) return path;
+    // Usamos la URL base dinámica (localhost o ngrok) definida en config.js
     return `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`;
   };
 
