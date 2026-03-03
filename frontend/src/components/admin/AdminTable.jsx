@@ -28,6 +28,7 @@ const AdminTable = ({
     if (currentPath.includes('/admin/reviews')) return '(max-width: 1495px)';
     if (currentPath.includes('/admin/users')) return '(max-width: 1045px)';
     if (currentPath.includes('/admin/categories')) return '(max-width: 640px)';
+    if (currentPath.includes('/style-guide')) return '(max-width: 1180px)';
     if (currentPath.includes('/profile')) return '(max-width: 768px)';
     if (currentPath === '/admin' || currentPath === '/admin/') return '(max-width: 1024px)';
 
